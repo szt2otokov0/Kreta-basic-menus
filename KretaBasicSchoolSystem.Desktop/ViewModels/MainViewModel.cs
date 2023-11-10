@@ -5,7 +5,7 @@ using KretaBasicSchoolSystem.Desktop.ViewModels.Base;
 using KretaBasicSchoolSystem.Desktop.ViewModels.ControlPanel;
 using KretaBasicSchoolSystem.Desktop.ViewModels.SchoolCitizens;
 using KretaBasicSchoolSystem.Desktop.ViewModels.SchoolClasses;
-
+using KretaBasicSchoolSystem.Desktop.ViewModels.SchoolSubjects;
 namespace KretaBasicSchoolSystem.Desktop.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
@@ -13,6 +13,7 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels
         private ControlPanelViewModel _controlPanelViewModel;
         private SchoolCitizensViewModel _schoolCitizensViewModel;
         private SchoolClassesViewModel _schoolClassesViewModel;
+        private SchoolSubjectsViewModel _schoolSubjectsViewModel;
 
         [ObservableProperty]
         private string _caption = string.Empty;
@@ -28,17 +29,23 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels
             _controlPanelViewModel = new ControlPanelViewModel();
             _schoolCitizensViewModel = new SchoolCitizensViewModel();
             _schoolClassesViewModel = new SchoolClassesViewModel();
+            _schoolSubjectsViewModel = new SchoolSubjectsViewModel();
+
+            CurrentChildView = _controlPanelViewModel;
+            ShowDashbord();
         }
 
         public MainViewModel(
             ControlPanelViewModel controlPanelViewModel,
             SchoolCitizensViewModel schoolCitizensViewModel,
-            SchoolClassesViewModel schoolClassesViewModel
+            SchoolClassesViewModel schoolClassesViewModel,
+            SchoolSubjectsViewModel schoolSubjectsViewModel
             )
         {
             _controlPanelViewModel = controlPanelViewModel;
             _schoolCitizensViewModel = schoolCitizensViewModel;
             _schoolClassesViewModel = schoolClassesViewModel;
+            _schoolSubjectsViewModel = schoolSubjectsViewModel;
 
             CurrentChildView = _controlPanelViewModel;
             ShowDashbord();
@@ -66,6 +73,14 @@ namespace KretaBasicSchoolSystem.Desktop.ViewModels
             Caption = "Osztályok";
             Icon = IconChar.ChalkboardUser;
             CurrentChildView = _schoolClassesViewModel;
+        }
+
+        [RelayCommand]
+        public void ShowSchoolSubjects()
+        {
+            Caption = "Tantárgyak";
+            Icon = IconChar.GraduationCap;
+            CurrentChildView = _schoolSubjectsViewModel;
         }
     }
 }
